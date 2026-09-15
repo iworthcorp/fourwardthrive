@@ -29,6 +29,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# internal branding reference (not for the repo)
+FOURWARD THRIVE BRANDING.pdf
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

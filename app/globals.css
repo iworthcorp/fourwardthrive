@@ -48,12 +48,12 @@
   --coach-line: 220 222 232;
   --coach-accent: 34 209 238;
 
-  /* Noir's identity is dark-on-black — this is its light companion palette */
-  --noir-bg: 250 247 237;
-  --noir-card: 240 231 210;
-  --noir-primary: 179 122 25;
-  --noir-deep: 30 26 18;
-  --noir-line: 222 212 190;
+  /* Fourward Thrive brand palette — light mode (White bg, Light Gray card, Primary Blue accent, Navy text, Silver Gray line) */
+  --noir-bg: 255 255 255;
+  --noir-card: 230 234 242;
+  --noir-primary: 0 123 255;
+  --noir-deep: 10 31 68;
+  --noir-line: 184 192 204;
 
   --ink-bg: 240 248 241;
   --ink-card: 223 240 226;
@@ -104,12 +104,12 @@
   --coach-line: 40 45 68;
   --coach-accent: 62 219 244;
 
-  /* Noir's original gold-on-near-black look becomes its dark mode */
-  --noir-bg: 11 18 32;
-  --noir-card: 24 32 51;
-  --noir-primary: 254 197 68;
-  --noir-deep: 245 247 250;
-  --noir-line: 42 51 72;
+  /* Fourward Thrive brand palette — dark mode (Navy bg, lighter Navy card, Primary Blue accent, White text, Silver Gray line) */
+  --noir-bg: 10 31 68;
+  --noir-card: 39 58 90;
+  --noir-primary: 0 123 255;
+  --noir-deep: 255 255 255;
+  --noir-line: 184 192 204;
 
   --ink-bg: 15 22 17;
   --ink-card: 23 34 26;
