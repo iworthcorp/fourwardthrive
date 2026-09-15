@@ -106,14 +106,14 @@ export default function LightboxGallery({
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-10"
+          className="fixed inset-0 z-[100] overflow-y-auto overscroll-contain bg-black/90 backdrop-blur-sm"
           onClick={() => setActiveIndex(null)}
         >
           <button
             type="button"
             onClick={() => setActiveIndex(null)}
             aria-label="Minimize"
-            className="absolute top-4 right-4 md:top-6 md:right-6 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="fixed top-4 right-4 md:top-6 md:right-6 z-[101] flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M6 6l12 12M18 6L6 18" />
@@ -129,7 +129,7 @@ export default function LightboxGallery({
                   setActiveIndex((i) => (i === null ? i : (i - 1 + images.length) % images.length));
                 }}
                 aria-label="Previous image"
-                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                className="fixed left-2 md:left-6 top-1/2 -translate-y-1/2 z-[101] flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M15 18l-6-6 6-6" />
@@ -142,7 +142,7 @@ export default function LightboxGallery({
                   setActiveIndex((i) => (i === null ? i : (i + 1) % images.length));
                 }}
                 aria-label="Next image"
-                className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                className="fixed right-2 md:right-6 top-1/2 -translate-y-1/2 z-[101] flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18l6-6-6-6" />
@@ -151,20 +151,24 @@ export default function LightboxGallery({
             </>
           )}
 
-          <img
-            src={active.src}
-            alt={active.alt}
-            onClick={() => setActiveIndex(null)}
-            aria-label="Minimize"
-            className="max-w-[92vw] max-h-[80vh] object-contain rounded-lg shadow-2xl cursor-zoom-out"
-          />
+          <div className="min-h-full flex items-center justify-center p-4 md:p-10">
+            <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={active.src}
+                alt={active.alt}
+                onClick={() => setActiveIndex(null)}
+                aria-label="Minimize"
+                className="max-w-[92vw] max-h-[85vh] object-contain rounded-lg shadow-2xl cursor-zoom-out"
+              />
 
-          {(active.title || active.cat) && (
-            <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 text-center text-white pointer-events-none">
-              {active.title && <p className="font-medium">{active.title}</p>}
-              {active.cat && <p className="text-xs text-white/60">{active.cat}</p>}
+              {(active.title || active.cat) && (
+                <div className="mt-4 text-center text-white pointer-events-none">
+                  {active.title && <p className="font-medium">{active.title}</p>}
+                  {active.cat && <p className="text-xs text-white/60">{active.cat}</p>}
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       )}
     </>
