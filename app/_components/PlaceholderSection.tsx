@@ -3,12 +3,14 @@ import { useReveal } from "./useReveal";
 import NavLink from "./NavLink";
 
 export default function PlaceholderSection({
+  id,
   eyebrow,
   title,
   description,
   ctaHref = "/contact",
   ctaLabel = "Get in Touch",
 }: {
+  id?: string;
   eyebrow: string;
   title: string;
   description: string;
@@ -18,7 +20,7 @@ export default function PlaceholderSection({
   useReveal();
 
   return (
-    <section className="max-w-6xl mx-auto px-6 md:px-10 pt-20 pb-24 md:pt-28 md:pb-32 text-center">
+    <section id={id} className="scroll-mt-24 max-w-6xl mx-auto px-6 md:px-10 pt-20 pb-24 md:pt-28 md:pb-32 text-center">
       <p className="text-sm font-medium text-noir-primary mb-4 tracking-wide uppercase" data-reveal>{eyebrow}</p>
       <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.08]" data-reveal style={{ transitionDelay: "80ms" }}>
         {title}

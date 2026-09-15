@@ -4,6 +4,14 @@ import { useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 import NavLink from "./NavLink";
 
+function isNavItemActive(pathname: string, item: { href: string; children?: { href: string }[] }) {
+  const matches = (href: string) => {
+    const path = href.split("#")[0];
+    return pathname === path || pathname.startsWith(path + "/");
+  };
+  return matches(item.href) || (item.children?.some((sub) => matches(sub.href)) ?? false);
+}
+
 const NAV = [
   {
     label: "About",
@@ -15,10 +23,15 @@ const NAV = [
       { label: "Our Promises", href: "/about#our-promises" },
     ],
   },
-  { label: "Clients", href: "/clients" },
-  { label: "Services", href: "/services" },
-  { label: "Products", href: "/products" },
-  { label: "Business Page", href: "/business-page" },
+  {
+    label: "Clients",
+    href: "/clients",
+    children: [
+      { label: "Services", href: "/clients#services" },
+      { label: "Products", href: "/clients#products" },
+      { label: "Business Page", href: "/clients#business-page" },
+    ],
+  },
   { label: "Our Team", href: "/our-team" },
   { label: "Packages", href: "/packages" },
   {
@@ -34,7 +47,7 @@ const NAV = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [mobileSubOpen, setMobileSubOpen] = useState(false);
+  const [mobileSubOpen, setMobileSubOpen] = useState<string | null>(null);
   const pathname = usePathname();
 
   return (
@@ -46,7 +59,7 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-6">
           {NAV.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+            const isActive = isNavItemActive(pathname, item);
             if (item.children) {
               return (
                 <div key={item.href} className="relative group">
@@ -111,7 +124,7 @@ export default function Header() {
       {open && (
         <div className="md:hidden px-6 py-4 flex flex-col gap-1 border-t border-noir-line">
           {NAV.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+            const isActive = isNavItemActive(pathname, item);
             if (item.children) {
               return (
                 <div key={item.href} className="flex flex-col">
@@ -126,14 +139,14 @@ export default function Header() {
                     <button
                       type="button"
                       aria-label={`Toggle ${item.label} submenu`}
-                      aria-expanded={mobileSubOpen}
-                      onClick={() => setMobileSubOpen((v) => !v)}
+                      aria-expanded={mobileSubOpen === item.href}
+                      onClick={() => setMobileSubOpen((v) => (v === item.href ? null : item.href))}
                       className="p-2 text-noir-deep/60"
                     >
-                      {mobileSubOpen ? "−" : "+"}
+                      {mobileSubOpen === item.href ? "−" : "+"}
                     </button>
                   </div>
-                  {mobileSubOpen && (
+                  {mobileSubOpen === item.href && (
                     <div className="pl-4 pb-2 flex flex-col gap-1 border-l border-noir-line">
                       {item.children.map((sub) => (
                         <NavLink

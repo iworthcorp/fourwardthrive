@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 export interface GalleryImage {
   src: string;
@@ -48,11 +49,8 @@ export default function LightboxGallery({
       if (e.key === "ArrowRight") setActiveIndex((i) => (i === null ? i : (i + 1) % images.length));
       if (e.key === "ArrowLeft") setActiveIndex((i) => (i === null ? i : (i - 1 + images.length) % images.length));
     };
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     document.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = prevOverflow;
       document.removeEventListener("keydown", onKey);
     };
   }, [activeIndex, images.length]);
@@ -102,11 +100,11 @@ export default function LightboxGallery({
         </button>
       )}
 
-      {active && (
+      {active && createPortal(
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[100] overflow-y-auto overscroll-contain bg-black/90 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center overscroll-contain bg-black/90 backdrop-blur-sm p-4 sm:p-8 md:p-12 animate-[lightbox-fade-in_0.2s_ease-out]"
           onClick={() => setActiveIndex(null)}
         >
           <button
@@ -151,25 +149,27 @@ export default function LightboxGallery({
             </>
           )}
 
-          <div className="min-h-full flex items-center justify-center p-4 md:p-10">
-            <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={active.src}
-                alt={active.alt}
-                onClick={() => setActiveIndex(null)}
-                aria-label="Minimize"
-                className="max-w-[92vw] max-h-[85vh] object-contain rounded-lg shadow-2xl cursor-zoom-out"
-              />
+          <div
+            className="relative flex flex-col items-center max-w-full max-h-full animate-[lightbox-zoom-in_0.25s_ease-out]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={active.src}
+              alt={active.alt}
+              onClick={() => setActiveIndex(null)}
+              aria-label="Minimize"
+              className="block w-auto h-auto max-w-[88vw] max-h-[78vh] sm:max-w-[85vw] sm:max-h-[80vh] object-contain rounded-lg shadow-2xl cursor-zoom-out"
+            />
 
-              {(active.title || active.cat) && (
-                <div className="mt-4 text-center text-white pointer-events-none">
-                  {active.title && <p className="font-medium">{active.title}</p>}
-                  {active.cat && <p className="text-xs text-white/60">{active.cat}</p>}
-                </div>
-              )}
-            </div>
+            {(active.title || active.cat) && (
+              <div className="mt-4 max-w-[88vw] text-center text-white pointer-events-none">
+                {active.title && <p className="font-medium">{active.title}</p>}
+                {active.cat && <p className="text-xs text-white/60">{active.cat}</p>}
+              </div>
+            )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
