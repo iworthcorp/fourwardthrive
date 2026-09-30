@@ -12,7 +12,12 @@ function isNavItemActive(pathname: string, item: { href: string; children?: { hr
   return matches(item.href) || (item.children?.some((sub) => matches(sub.href)) ?? false);
 }
 
-const NAV = [
+type NavChild = { label: string; href: string; visible?: boolean };
+type NavItem = { label: string; href: string; visible?: boolean; children?: NavChild[] };
+
+// Set `visible: false` on any menu or sub-menu item to hide it from the header.
+// Items without `visible` are shown by default.
+const NAV: NavItem[] = [
   {
     label: "About",
     href: "/about",
@@ -37,6 +42,7 @@ const NAV = [
   {
     label: "Testimonials",
     href: "/testimonials",
+    visible: false,
     children: [
       { label: "Gallery", href: "/testimonials#gallery" },
       { label: "Videos", href: "/testimonials#videos" },
@@ -44,6 +50,11 @@ const NAV = [
   },
   { label: "Contact", href: "/contact" },
 ];
+
+const VISIBLE_NAV: NavItem[] = NAV.filter((item) => item.visible !== false).map((item) => {
+  const children = item.children?.filter((sub) => sub.visible !== false);
+  return { ...item, children: children?.length ? children : undefined };
+});
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -58,7 +69,7 @@ export default function Header() {
         </NavLink>
 
         <nav className="hidden md:flex items-center gap-6">
-          {NAV.map((item) => {
+          {VISIBLE_NAV.map((item) => {
             const isActive = isNavItemActive(pathname, item);
             if (item.children) {
               return (
@@ -123,7 +134,7 @@ export default function Header() {
 
       {open && (
         <div className="md:hidden px-6 py-4 flex flex-col gap-1 border-t border-noir-line">
-          {NAV.map((item) => {
+          {VISIBLE_NAV.map((item) => {
             const isActive = isNavItemActive(pathname, item);
             if (item.children) {
               return (

@@ -5,6 +5,7 @@ All notable changes to this project are documented in this file.
 ## 2026-09-30
 
 ### Added
+- **20:35** — Added show/hide support for header menus and sub-menus (`app/_components/Header.tsx`): setting `visible: false` on any `NAV` item or child hides it on both desktop and mobile navigation. A menu whose sub-menu items are all hidden renders as a plain link. The Testimonials menu (and its Gallery/Videos sub-menu) is now hidden; the `/testimonials` page itself still exists and is reachable by URL.
 - **20:18** — Added team member photos for Mitch (`public/assets/images/Mitch.jpg`) and Raymond Cerida (`public/assets/images/Raymond.jpg`).
 
 ### Changed
