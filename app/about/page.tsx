@@ -42,7 +42,7 @@ export default function About() {
       {/* Intro */}
       <section className="max-w-6xl mx-auto px-6 md:px-10 pt-14 pb-16 md:pt-20 md:pb-24 grid md:grid-cols-2 gap-10 items-center">
         <div className="aspect-square rounded-4xl bg-noir-card border border-noir-line overflow-hidden" data-reveal>
-          <img src="/assets/images/image.png" alt="Fourward Thrive team working" className="w-full h-full object-cover" />
+          <img src="/assets/images/fourward-thrive-logo.jpg" alt="Fourward Thrive logo" className="w-full h-full object-cover" />
         </div>
         <div data-reveal style={{ transitionDelay: "120ms" }}>
           <h1 className="font-sora text-3xl font-semibold mb-4">About Four<span className="text-noir-primary">ward</span> Thrive</h1>
