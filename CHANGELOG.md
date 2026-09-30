@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## 2026-09-30
+
+### Added
+- **20:18** — Added team member photos for Mitch (`public/assets/images/Mitch.jpg`) and Raymond Cerida (`public/assets/images/Raymond.jpg`).
+
+### Changed
+- **20:18** — Replaced the placeholder logo in the Our Team page's member avatars (`app/our-team/page.tsx`) with each member's own photo, via a new per-member `image` field. Avatars use `object-top` cropping so faces stay framed in the circular badge.
+
 ## 2026-09-16
 
 ### Added

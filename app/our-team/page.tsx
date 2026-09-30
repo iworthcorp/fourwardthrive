@@ -4,6 +4,7 @@ import { useReveal } from "../_components/useReveal";
 const TEAM = [
   {
     name: "Mitch",
+    image: "/assets/images/Mitch.jpg",
     title: "Chief Executive Officer | Digital Marketing Specialist & Entrepreneur",
     bio: [
       "A former OFW turned entrepreneur and business owner, Mitch brings real-world business experience and digital marketing expertise to the team. Her journey from working overseas to building businesses gives her a unique perspective on entrepreneurship, income generation, branding, and digital transformation.",
@@ -13,6 +14,7 @@ const TEAM = [
   },
   {
     name: "Raymond Cerida",
+    image: "/assets/images/Raymond.jpg",
     title: "Entrepreneur | Coach | Business Consultant",
     bio: [
       "With an entrepreneurial mindset and passion for developing people and businesses, Raymond Cerida brings coaching and business consulting expertise to Fourward Thrive.",
@@ -52,7 +54,7 @@ export default function OurTeam() {
             className="bg-noir-card border border-noir-line rounded-3xl p-6 md:p-8 flex flex-col items-center text-center"
           >
             <div className="h-28 w-28 rounded-full overflow-hidden border-2 border-noir-primary/40 shrink-0">
-              <img src="/assets/images/logo.png" alt={member.name} className="w-full h-full object-cover" />
+              <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top" />
             </div>
             <h2 className="mt-5 font-sora text-xl font-semibold uppercase tracking-wide">{member.name}</h2>
             <p className="mt-1 text-xs font-medium text-noir-primary uppercase tracking-wide">{member.title}</p>
